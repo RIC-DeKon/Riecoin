@@ -8,7 +8,7 @@
 #include <key.h>             // For CKey
 #include <key_io.h>          // For DecodeDestination()
 #include <pubkey.h>          // For CPubKey
-#include <script/standard.h> // For CTxDestination, IsValidDestination(), PKHash
+#include <script/standard.h> // For CTxDestination, IsValidDestination(), WitnessV0KeyHash
 #include <serialize.h>       // For SER_GETHASH
 #include <util/message.h>
 #include <util/strencodings.h> // For DecodeBase64()
@@ -32,7 +32,7 @@ MessageVerificationResult MessageVerify(
         return MessageVerificationResult::ERR_INVALID_ADDRESS;
     }
 
-    if (boost::get<PKHash>(&destination) == nullptr) {
+    if (boost::get<WitnessV0KeyHash>(&destination) == nullptr) {
         return MessageVerificationResult::ERR_ADDRESS_NO_KEY;
     }
 
@@ -47,7 +47,7 @@ MessageVerificationResult MessageVerify(
         return MessageVerificationResult::ERR_PUBKEY_NOT_RECOVERED;
     }
 
-    if (!(CTxDestination(PKHash(pubkey)) == destination)) {
+    if (!(CTxDestination(WitnessV0KeyHash(pubkey)) == destination)) {
         return MessageVerificationResult::ERR_NOT_SIGNED;
     }
 

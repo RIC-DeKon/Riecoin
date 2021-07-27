@@ -129,9 +129,9 @@ public:
         }
         return false;
     }
-    SigningResult signMessage(const std::string& message, const PKHash& pkhash, std::string& str_sig) override
+    SigningResult signMessage(const std::string& message, const WitnessV0KeyHash& w0pkhash, std::string& str_sig) override
     {
-        return m_wallet->SignMessage(message, pkhash, str_sig);
+        return m_wallet->SignMessage(message, w0pkhash, str_sig);
     }
     bool isSpendable(const CTxDestination& dest) override
     {
